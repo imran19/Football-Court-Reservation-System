@@ -1,0 +1,73 @@
+﻿@using FCRS.Models;
+
+@{
+    User user = ViewData["user"] as User;
+}
+@if (user != null && user.Admin != false)
+{
+    using (Html.BeginForm("LogOff", "Users", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+
+            <li>@Html.ActionLink("Find player", "Index", "Message", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Info/News", "SendReview", "Info", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>           
+            <li>@Html.ActionLink("Reviews", "SendReview", "Review", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Calendar", "Index", "BasicScheduler", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Reservations", "Reservations", "Admin", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>           
+            <li>@Html.ActionLink("Customers", "ListOfUsers", "Admin", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Profile", "Edit", "Admin", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Contact", "Contact", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+
+
+
+            <li>
+                @Html.ActionLink("Hello " + user.Firstname + "!", "PoslijeLogin", "Admin", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    }
+}
+
+else if (user != null && user.Admin != true)
+{
+    using (Html.BeginForm("LogOff", "Users", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <ul class="nav navbar-nav navbar-right">
+
+            <li>@Html.ActionLink("Find player", "Index", "Message", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Info/News", "SendReview", "Info", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Reviews", "SendReview", "Review", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Calendar", "Index", "BasicScheduler", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Reservations", "ListOfReservations", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Reserve field", "Reservation", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>         
+            <li>@Html.ActionLink("Profile", "Edit", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Contact", "Contact", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+
+            <li>
+                @Html.ActionLink("Hello " + user.Firstname + "!", "PoslijeLogin", "Users", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+
+
+    }
+}
+
+
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+
+        
+        <li>@Html.ActionLink("Register", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Users", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+
+
+
+    </ul>
+}
